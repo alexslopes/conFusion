@@ -7,6 +7,7 @@ import { MatListModule } from '@angular/material/list'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonModule } from '@angular/material/button'
+import { MatDialogModule } from '@angular/material/dialog'
 import { AppComponent } from './app.component';
 import 'hammerjs';
 
@@ -22,6 +23,8 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { LeaderService } from './services/leader.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -33,7 +36,8 @@ import { ContactComponent } from './contact/contact.component';
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,11 +48,16 @@ import { ContactComponent } from './contact/contact.component';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule
   ],
   providers: [
     DishService,
-    PromotionService
+    PromotionService,
+    LeaderService
+  ],
+  entryComponents: [//To make this component be opened from another component, you need to declare this as an EntryComponent in the AppModule
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })
