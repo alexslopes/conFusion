@@ -12,7 +12,7 @@ export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
-  @ViewChild('fform') feedbackFormDirective;
+  @ViewChild('fform') feedbackFormDirective;//permite ter acesso aos elementos filhos do DOM
 
   constructor(private fb: FormBuilder) {
     this.createForm();
@@ -45,7 +45,8 @@ export class ContactComponent implements OnInit {
       contactttype: 'None',
       message: ''
     });
-    this.feedbackFormDirective.resetForm();
+    this.feedbackFormDirective.resetForm();//variavel com acesso a todos elementos filho do DOm para poder
+    // reiniciar valores
   }
 
 }
