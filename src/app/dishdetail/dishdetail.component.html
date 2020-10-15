@@ -1,12 +1,5 @@
-<div
-  class="container"
-  fxLayout="row"
-  fxLayout.sm="column"
-  fxLayout.xs="column"
-  fxLayoutAlign.gt-md="space-around center"
-  fxLayoutGap="10px"
-  fxLayoutGap.xs="0"
->
+<div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
+  fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
   <div fxFlex="40" *ngIf="dish">
     <mat-card>
       <mat-card-header>
@@ -33,7 +26,8 @@
     </mat-card>
   </div>
   <div fxFlex [hidden]="dish">
-    <mat-spinner></mat-spinner> <h4>Loading ... Please Wait!</h4>
+    <mat-spinner></mat-spinner>
+    <h4>Loading ... Please Wait!</h4>
   </div>
 
   <div fxFlex="40" *ngIf="dish">
@@ -46,9 +40,40 @@
         <p>{{ comment.rating }} Stars</p>
         <p>-- {{ comment.author }} {{ comment.date | date }}</p>
       </mat-list>
+    <mat-list *ngIf="commentForm.valid">
+      <h3>{{ commentForm.get('comment').value }}</h3>
+      <p>{{ commentForm.get('slider').value }} Stars</p>
+      <p>-- {{ commentForm.get('author').value }}</p>
+    </mat-list>
     </mat-card>
+
+    <form novalidate [formGroup]="commentForm" #fform="ngForm">
+      <p>
+        <mat-form-field class="full-width">
+          <input matInput formControlName="author" placeholder="Name" type="text">
+          <mat-error *ngIf="formErrors.author">
+            {{ formErrors.author }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-slider thumbLabel formControlName="slider" tickInterval="5" min="1" max="5"></mat-slider>
+      </p>
+      <p>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="comment" placeholder="Your Comment" rows=12>
+        </textarea>
+        <mat-error *ngIf="formErrors.comment">
+          {{ formErrors.comment }}
+        </mat-error>
+        </mat-form-field>
+      </p>
+      <button type="submit" mat-button class="background-primary text-floral-white"
+       [disabled]="commentForm.invalid">Submit</button>
+    </form>
   </div>
   <div fxFlex [hidden]="dish">
-    <mat-spinner></mat-spinner> <h4>Loading ... Please Wait!</h4>
+    <mat-spinner></mat-spinner>
+    <h4>Loading ... Please Wait!</h4>
   </div>
 </div>
