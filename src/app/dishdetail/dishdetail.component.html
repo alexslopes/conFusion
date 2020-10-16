@@ -42,12 +42,12 @@
       </mat-list>
     <mat-list *ngIf="commentForm.valid">
       <h3>{{ commentForm.get('comment').value }}</h3>
-      <p>{{ commentForm.get('slider').value }} Stars</p>
+      <p>{{ commentForm.get('rating').value }} Stars</p>
       <p>-- {{ commentForm.get('author').value }}</p>
     </mat-list>
     </mat-card>
 
-    <form novalidate [formGroup]="commentForm" #fform="ngForm">
+    <form novalidate [formGroup]="commentForm" #fform="ngForm" (ngSubmit)="onSubmit()">
       <p>
         <mat-form-field class="full-width">
           <input matInput formControlName="author" placeholder="Name" type="text">
@@ -57,7 +57,7 @@
         </mat-form-field>
       </p>
       <p>
-        <mat-slider thumbLabel formControlName="slider" tickInterval="5" min="1" max="5"></mat-slider>
+        <mat-slider thumbLabel formControlName="rating" tickInterval="5" min="1" max="5"></mat-slider>
       </p>
       <p>
         <mat-form-field class="full-width">

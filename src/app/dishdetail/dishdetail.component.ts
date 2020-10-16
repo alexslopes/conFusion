@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Dish } from '../shared/dish';
@@ -18,6 +18,7 @@ export class DishdetailComponent implements OnInit {
   dishIds: string[];
   prev: string;
   next: string;
+  @ViewChild('fform') commentFormDirective;
 
   formErrors = {
     'author': '',
@@ -30,7 +31,7 @@ export class DishdetailComponent implements OnInit {
       'minlength': 'Name must be at least 2 characters long.'
     },
     'comment': {
-      'required': 'Last Name is required.'
+      'required': 'Comment is required.'
     },
   };
 
@@ -52,7 +53,7 @@ export class DishdetailComponent implements OnInit {
     this.commentForm = this.cm.group({
       author: ['', [Validators.required, Validators.minLength(2)] ],
       comment: ['', [Validators.required] ],
-      slider: 5
+      rating: 5
     });
 
     this.commentForm.valueChanges
@@ -86,6 +87,25 @@ export class DishdetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  onSubmit() {
+    var d = new Date();
+    let comment  = {
+      'rating': this.commentForm.get('rating').value,
+      'comment': this.commentForm.get('comment').value,
+      'author': this.commentForm.get('author').value,
+      'date': d.toISOString()
+    }
+
+    this.dish.comments.push(comment);
+
+    this.commentForm.reset({
+      author: '',
+      comment: '',
+      rating: 5
+    });
+
   }
 
 }
