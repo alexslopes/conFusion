@@ -14,7 +14,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +38,8 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
+
+import { baseURL } from './shared/baseurl';
 
 
 @NgModule({
@@ -62,6 +66,7 @@ import { LoginComponent } from './login/login.component';
     MatCardModule,
     MatButtonModule,
     AppRoutingModule,
+    HttpClientModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -69,12 +74,14 @@ import { LoginComponent } from './login/login.component';
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpModule
   ],
   providers: [
     DishService,
     PromotionService,
-    LeaderService
+    LeaderService,
+    { provide: 'BaseURL', useValue: baseURL }
   ],
   entryComponents: [//To make this component be opened from another component, you need to declare this as an EntryComponent in the AppModule
     LoginComponent
