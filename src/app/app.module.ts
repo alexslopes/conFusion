@@ -28,6 +28,8 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
+import { LeaderService } from './services/leader.service';
+import { ProcessHTTPMsgService  } from './services/process-httpmsg.service';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -36,7 +38,6 @@ import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
-import { LeaderService } from './services/leader.service';
 import { LoginComponent } from './login/login.component';
 
 import { baseURL } from './shared/baseurl';
@@ -81,6 +82,7 @@ import { baseURL } from './shared/baseurl';
     DishService,
     PromotionService,
     LeaderService,
+    ProcessHTTPMsgService,
     { provide: 'BaseURL', useValue: baseURL }
   ],
   entryComponents: [//To make this component be opened from another component, you need to declare this as an EntryComponent in the AppModule
