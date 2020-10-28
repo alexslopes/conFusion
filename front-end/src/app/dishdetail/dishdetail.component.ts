@@ -59,8 +59,8 @@ export class DishdetailComponent implements OnInit {
   createForm() {
     this.commentForm = this.cm.group({
       author: ['', [Validators.required, Validators.minLength(2)] ],
-      comment: ['', [Validators.required] ],
-      rating: 5
+      rating: 5,
+      comment: ['', Validators.required]
     });
 
     this.commentForm.valueChanges
@@ -100,7 +100,7 @@ export class DishdetailComponent implements OnInit {
     this.comment = this.commentForm.value;
     this.comment.date = new Date().toISOString();
     console.log(this.comment);
-    this.dishcopy.comments.push(this.commentForm.value);
+    this.dishcopy.comments.push(this.comment);
     this.dishService.putDish(this.dishcopy)
       .subscribe(dish => {
         this.dish = dish; this.dishcopy = dish;
@@ -110,8 +110,8 @@ export class DishdetailComponent implements OnInit {
     this.commentFormDirective.resetForm();
     this.commentForm.reset({
       author: '',
-      comment: '',
-      rating: 5
+      rating: 5,
+      comment: ''
     });
 
   }

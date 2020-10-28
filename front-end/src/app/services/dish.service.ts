@@ -39,7 +39,7 @@ export class DishService {
   putDish(dish: Dish): Observable<Dish> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'applicationCache/json'
+        'Content-Type': 'application/json'
       })
     };
 
