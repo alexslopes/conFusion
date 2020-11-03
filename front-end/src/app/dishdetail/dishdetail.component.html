@@ -1,6 +1,6 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
   fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility">
+  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility" [@expand]>
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -30,7 +30,7 @@
     <h4>Loading ... Please Wait!</h4>
   </div>
 
-  <div fxFlex="40" *ngIf="dish"  [@visibility]="visibility">
+  <div fxFlex="40" *ngIf="dish"  [@visibility]="visibility" [@expand]>
     <mat-card>
       <mat-card-title>
         <h1>Comments</h1>
