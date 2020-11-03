@@ -1,6 +1,6 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
   fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-  <div fxFlex="40" *ngIf="dish">
+  <div fxFlex="40" *ngIf="dish" [@visibility]="visibility">
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -30,7 +30,7 @@
     <h4>Loading ... Please Wait!</h4>
   </div>
 
-  <div fxFlex="40" *ngIf="dish">
+  <div fxFlex="40" *ngIf="dish"  [@visibility]="visibility">
     <mat-card>
       <mat-card-title>
         <h1>Comments</h1>
@@ -40,11 +40,11 @@
         <p>{{ comment.rating }} Stars</p>
         <p>-- {{ comment.author }} {{ comment.date | date }}</p>
       </mat-list>
-    <mat-list *ngIf="commentForm.valid">
-      <h3>{{ commentForm.get('comment').value }}</h3>
-      <p>{{ commentForm.get('rating').value }} Stars</p>
-      <p>-- {{ commentForm.get('author').value }}</p>
-    </mat-list>
+      <mat-list *ngIf="commentForm.valid">
+        <h3>{{ commentForm.get('comment').value }}</h3>
+        <p>{{ commentForm.get('rating').value }} Stars</p>
+        <p>-- {{ commentForm.get('author').value }}</p>
+      </mat-list>
     </mat-card>
 
     <form novalidate [formGroup]="commentForm" #fform="ngForm" (ngSubmit)="onSubmit()">
@@ -63,13 +63,13 @@
         <mat-form-field class="full-width">
           <textarea matInput formControlName="comment" placeholder="Your Comment" rows=12>
         </textarea>
-        <mat-error *ngIf="formErrors.comment">
-          {{ formErrors.comment }}
-        </mat-error>
+          <mat-error *ngIf="formErrors.comment">
+            {{ formErrors.comment }}
+          </mat-error>
         </mat-form-field>
       </p>
       <button type="submit" mat-button class="background-primary text-floral-white"
-       [disabled]="commentForm.invalid">Submit</button>
+        [disabled]="commentForm.invalid">Submit</button>
     </form>
   </div>
   <div fxFlex [hidden]="dish || errMess">
