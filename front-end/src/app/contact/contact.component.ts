@@ -37,27 +37,27 @@ export class ContactComponent implements OnInit {
 
   validationMessages = {
     'firstname': {
-      'required':      'First Name is required.',
-      'minlength':     'First Name must be at least 2 characters long.',
-      'maxlength':     'FirstName cannot be more than 25 characters long.'
+      'required': 'First Name is required.',
+      'minlength': 'First Name must be at least 2 characters long.',
+      'maxlength': 'FirstName cannot be more than 25 characters long.'
     },
     'lastname': {
-      'required':      'Last Name is required.',
-      'minlength':     'Last Name must be at least 2 characters long.',
-      'maxlength':     'Last Name cannot be more than 25 characters long.'
+      'required': 'Last Name is required.',
+      'minlength': 'Last Name must be at least 2 characters long.',
+      'maxlength': 'Last Name cannot be more than 25 characters long.'
     },
     'telnum': {
-      'required':      'Tel. number is required.',
-      'pattern':       'Tel. number must contain only numbers.'
+      'required': 'Tel. number is required.',
+      'pattern': 'Tel. number must contain only numbers.'
     },
     'email': {
-      'required':      'Email is required.',
-      'email':         'Email not in valid format.'
+      'required': 'Email is required.',
+      'email': 'Email not in valid format.'
     },
   };
 
   constructor(private fb: FormBuilder,
-    private  feedbackService: FeedbackService) {
+    private feedbackService: FeedbackService) {
     this.createForm();
   }
 
@@ -66,10 +66,10 @@ export class ContactComponent implements OnInit {
 
   createForm() {
     this.feedbackForm = this.fb.group({
-      firstname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
-      lastname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
-      telnum: ['', [Validators.required, Validators.pattern] ],
-      email: ['', [Validators.required, Validators.email] ],
+      firstname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+      lastname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+      telnum: ['', [Validators.required, Validators.pattern]],
+      email: ['', [Validators.required, Validators.email]],
       agree: false,
       contacttype: 'None',
       message: ''
@@ -107,18 +107,18 @@ export class ContactComponent implements OnInit {
     this.showSpinner = true;
     this.showForm = false;
     console.log(this.feedback);
-    this.feedbackService.postFeedback(this.feedback)
-    .subscribe(feedback => {
-      this.feedback = feedback;
-      this.showSpinner = false;
-      this.showFeedBack = true;
-    },
-    errmess => { this.feedback = null; this.errMess = <any>errmess; });
+    this.feedbackService.submitFeedback(this.feedback)
+      .subscribe(feedback => {
+        this.feedback = feedback;
+        this.showSpinner = false;
+        this.showFeedBack = true;
+        setTimeout(() => {
+          this.showFeedBack = false;
+          this.showForm = true;
+        }, 5000);
+      },
+        errmess => { this.feedback = null; this.errMess = <any>errmess; });
 
-    setTimeout(()=>{
-      this.showFeedBack = false;
-      this.showForm = true;
-    }, 5000);
     this.feedbackFormDirective.resetForm();//variavel com acesso a todos elementos filho do DOm para poder
     // reiniciar valores
     this.feedbackForm.reset({

@@ -14,7 +14,7 @@ export class FeedbackService {
   constructor(private http: HttpClient,
     private processHTTPMsgService: ProcessHTTPMsgService) { }
 
-  postFeedback(feedback: Feedback): Observable<Feedback> {
+  submitFeedback(feedback: Feedback): Observable<Feedback> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -22,6 +22,6 @@ export class FeedbackService {
     };
 
     return this.http.post<Feedback>(baseURL + 'feedback/', feedback, httpOptions)
-    .pipe(catchError(this.processHTTPMsgService.handleError));
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 }
