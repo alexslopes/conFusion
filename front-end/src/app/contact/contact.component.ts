@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { flyInOut } from '../animations/app.animation';
+import { expand, flyInOut } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 import { Feedback, ContactType } from '../shared/feedback';
 
 @Component({
@@ -12,13 +13,18 @@ import { Feedback, ContactType } from '../shared/feedback';
     'style': 'display: block;'
   },
   animations: [
-    flyInOut()
+    flyInOut(),
+    expand()
   ]
 })
 export class ContactComponent implements OnInit {
 
   feedbackForm: FormGroup;
   feedback: Feedback;
+  errMess: string;
+  showSpinner = false;
+  showFeedBack = false;
+  showForm = true;
   contactType = ContactType;
   @ViewChild('fform') feedbackFormDirective;//permite ter acesso aos elementos filhos do DOM
 
@@ -50,7 +56,8 @@ export class ContactComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private  feedbackService: FeedbackService) {
     this.createForm();
   }
 
@@ -97,7 +104,23 @@ export class ContactComponent implements OnInit {
 
   onSubmit() {
     this.feedback = this.feedbackForm.value;
+    this.showSpinner = true;
+    this.showForm = false;
     console.log(this.feedback);
+    this.feedbackService.postFeedback(this.feedback)
+    .subscribe(feedback => {
+      this.feedback = feedback;
+      this.showSpinner = false;
+      this.showFeedBack = true;
+    },
+    errmess => { this.feedback = null; this.errMess = <any>errmess; });
+
+    setTimeout(()=>{
+      this.showFeedBack = false;
+      this.showForm = true;
+    }, 5000);
+    this.feedbackFormDirective.resetForm();//variavel com acesso a todos elementos filho do DOm para poder
+    // reiniciar valores
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
@@ -107,8 +130,6 @@ export class ContactComponent implements OnInit {
       contactttype: 'None',
       message: ''
     });
-    this.feedbackFormDirective.resetForm();//variavel com acesso a todos elementos filho do DOm para poder
-    // reiniciar valores
   }
 
 }
